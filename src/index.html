@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel='stylesheet' type='text/css' href='css/cupertino/theme.css' />
+<link rel='stylesheet' type='text/css' href='css/fullcalendar.css' />
+<link rel="stylesheet" type="text/css" href="css/fixed-positioning.css" />
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<link rel='stylesheet' type='text/css' href='css/travel-navigator.css' />
+
+<script type='text/javascript' src='js/jquery-1.8.1.min.js'></script>
+<script type='text/javascript' src='js/jquery-ui-1.8.23.custom.min.js'></script>
+<script type='text/javascript' src='js/jquery.transit-0.1.3.js'></script>
+<script type='text/javascript' src='js/fullcalendar.js'></script>
+<script type='text/javascript' src='js/gcal.js'></script>
+<script type='text/javascript' src='js/jquery.smooth-scroll.js'></script>
+<script type='text/javascript' src='js/travel-navigator.js'></script>
+</head>
+<body class="notransition" >
+
+	<a id="anc-500" name="s1" class="smooth-scroll" >aaaa</a>
+	<div id="s1" data-0="top:100%" data-500="top:0%;" data-700="top:0%" data-end="top:-100%">
+		<div id="calendar-container">
+			<div id="calendar-selected" >Select checkin-checkout</div>
+			<a id="calendar-prev" href="#" class="calendar-button calendar-prev" ><div>&lt;</div></a>
+			<div id='calendar'></div>
+			<a id="calendar-next" href="#" class="calendar-button calendar-next" ><div>&gt;</div></a>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/skrollr.js"></script>
+	<script type="text/javascript">
+	var s = skrollr.init({
+		beforerender: function(data) {
+			//console.log('beforerender');
+		},
+		render: function() {
+			//console.log('render');
+		},
+		easing: {
+			WTF: Math.random,
+			inverted: function(p) {
+				return 1-p;
+			}
+		}
+	});
+	</script>
+</body>
+</html>
