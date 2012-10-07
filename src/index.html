@@ -18,32 +18,32 @@
 </head>
 <body class="notransition" >
 
-	<a id="anc-500" name="s1" class="smooth-scroll" >aaaa</a>
-	<div id="s1" data-0="top:100%" data-500="top:0%;" data-700="top:0%" data-end="top:-100%">
-		<div id="calendar-container">
-			<div id="calendar-selected" >Select checkin-checkout</div>
+	<nav id="s-0-1" data-start="top:40%" data-end="top:40%;" >
+		<p data-href="#500" class="smooth-scroll" ><span class="nav-icon icon-date" >Date</span></p>
+		<p data-href="#2000" class="smooth-scroll" ><span class="nav-icon icon-area" >Area</span></p>
+		<p data-href="#3500" class="smooth-scroll" ><span class="nav-icon icon-result" >Result</span></p>
+	</nav>
+
+	<div id="s-400-1" data-0="top:100%;" data-400="top:40%;" data-1000="top:40%" data-1500="top:-100%;" class="item" >
+		<div class="calendar-container">
 			<a id="calendar-prev" href="#" class="calendar-button calendar-prev" ><div>&lt;</div></a>
-			<div id='calendar'></div>
 			<a id="calendar-next" href="#" class="calendar-button calendar-next" ><div>&gt;</div></a>
 		</div>
+	</div>
+	<div id="s-500-1" data-0="top:100%;opacity:0;" data-500="top:7%;opacity:1;" data-1000="top:7%" data-1500="top:-100%;opacity:0;" class="item" >
+		<div id="calendar-selected" >Select checkin and drag to checkout</div>
+		<div id="calendar-container">
+			<div id='calendar'></div>
+		</div>
+	</div>
+
+	<div id="s-1000-2" data-1500="transform:rotateY(-180deg);opacity:0;top:70%;" data-2000="transform:rotateY(0deg);opacity:1;top:50%;" data-1000="transform:rotateY(0deg);opacity:1;top:50%;" data-2000="transform:rotateY(180deg);opacity:0;top:30%" class="" >
+		<div id="date" ></div>
 	</div>
 
 	<script type="text/javascript" src="js/skrollr.js"></script>
 	<script type="text/javascript">
-	var s = skrollr.init({
-		beforerender: function(data) {
-			//console.log('beforerender');
-		},
-		render: function() {
-			//console.log('render');
-		},
-		easing: {
-			WTF: Math.random,
-			inverted: function(p) {
-				return 1-p;
-			}
-		}
-	});
+	// var s = skrollr.init();
 	</script>
 </body>
 </html>

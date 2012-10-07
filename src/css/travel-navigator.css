@@ -3,7 +3,40 @@ body {
 	font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
 }
 
-#s1 {
+nav {
+	top : 40%;
+}
+
+nav p{
+	display: block;
+	border: 1px solid #cccccc;
+	margin: auto;
+	padding: 0.3em;
+	font-size: 150%;
+}
+
+nav p:hover{
+	background-color: #ffffcb;
+}
+
+nav p span{
+	color: #AAAAAA;
+}
+
+.nav-icon{
+	padding-left: 30px;
+}
+.icon-date{
+	background: url(../images/clock.png) no-repeat;
+}
+.icon-area{
+	background: url(../images/world.png) no-repeat;
+}
+.icon-result{
+	background: url(../images/magnifyingglass.png) no-repeat;
+}
+
+.item {
 	left: 50%;
 	margin-left: -40%;
 	width: 80%;
@@ -61,7 +94,6 @@ a.calendar-button{
 	text-decoration: none;
 	display : block;
 	position: absolute;
-	top: 50%;
 }
 a.calendar-button:hover div{
 	background-color: #CCCCCC;
@@ -75,6 +107,12 @@ a.calendar-button div{
 	padding: 5px;
 	text-align: center;
 	font-weight: bold;
+}
+
+#s-1000-2{
+	font-size: 200%;
+	left: 50%;
+	margin-left: -15%;
 }
 
 .calendar-prev{

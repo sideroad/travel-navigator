@@ -1,7 +1,7 @@
 html,body,div,span,p,a,del,em,img,ol,ul,li,fieldset,form,label{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
 html,body{line-height:1;min-height:100%;font-family:Artial,Verdana,sans-serif;}
-body{background:#eeeeee;background:-webkit-linear-gradient(top, #eeeeee, #cccccc 100%);background:-moz-linear-gradient(top, #eeeeee, #cccccc 100%);background:-o-linear-gradient(top, #eeeeee, #cccccc 100%);background:-ms-linear-gradient(top, #eeeeee, #cccccc 100%);background:linear-gradient(top, #eeeeee, #cccccc 100%);background-attachment:fixed;}
+body{background-attachment:fixed;}
 ol,ul{list-style:none;}
 p{margin:1em 0;line-height:1.1em;}
 q{font-style:italic;color:#333;}
