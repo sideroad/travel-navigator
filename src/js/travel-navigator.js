@@ -1,8 +1,7 @@
-var aaa;
-(function(global, $, google){
+(function(global, document, $, google){
 	"use strict";
 
-	$(global.document).ready(function() {
+	$(function() {
 
 
 		//Date initialize
@@ -44,16 +43,45 @@ var aaa;
 
 		//Area initialize
 		(function(){
-			var autocomplete = new google.maps.places.Autocomplete($("#area-text")[0],{
-				componentRestrictions: {country: 'jp'}
+
+			/* Google API */
+			// var autocomplete = new google.maps.places.Autocomplete($("#area-text")[0],{
+			//	componentRestrictions: {country: 'jp'}
+			// });
+
+			// google.maps.event.addListener(autocomplete, 'place_changed', function() {
+			//	var place = autocomplete.getPlace().geometry;
+			//	if(!place) return;
+			//	console.log(place.location);
+			// });
+
+			/*Travel area mapping*/
+			var group = global.domesticAreaMaster.name.group,
+				name = global.domesticAreaMaster.name.normal,
+				map = global.domesticAreaMaster.map.normal;
+
+			Object.keys(group).forEach(function(key){
+				$("<div id='area_group_"+key+"' class='area-photo area-group' >"+group[key]+"</div>").appendTo("#area-photo-container");
 			});
 
-			google.maps.event.addListener(autocomplete, 'place_changed', function() {
-				var place = autocomplete.getPlace().geometry;
-				if(!place) return;
-				console.log(place.location);
-			});
+			$("#area-photo-container").delegate(".area-photo", "click", function(){
+				var id = this.id.split("_"),
+					next = {
+						group: 'middle',
+						middle: 'small',
+						small : 'detail'
+					}[id[1]],
+					area = map[next][id[3]?id[3]:id[2]];
+				if(!area) {
+					//Search!!!!
+					console.log("Search! by ", id);
+				}
+				$("#area-photo-container").html("");
+				area.forEach(function(key){
+					$("<div id='area_"+next+"_"+key+"_"+(id[3]?id[3]+"-":"")+key+"' class='area-photo area-"+next+"' data-val='"+key+"' >"+name[(id[3]?id[3]+"-":"")+key]+"</div>").appendTo("#area-photo-container");
+				});
 
+			});
 
 
 			// $.ajax({
@@ -82,4 +110,4 @@ var aaa;
 
 		
 	});
-})(this, jQuery, google);
+})(this, this.document, jQuery, google);

@@ -42,6 +42,30 @@ nav p span{
 	width: 70%;
 }
 
+#area-photo-selected{
+	box-sizing: border-box;
+	width: 20%;
+	border-left: 1px solid #CCCCCC;
+	float: left;
+}
+#area-photo-container{
+	width: 80%;
+	float: left;
+}
+
+.area-photo{
+	box-sizing: border-box;
+	border: 1px solid #CCCCCC;
+	width: 200px;
+	height: 150px;
+	float: left;
+	color: #777;
+}
+
+.area-group{
+	font-size: 2em;
+}
+
 #calendar{
 	width: 90%;
 	margin: 0 auto;
@@ -94,7 +118,7 @@ td.fc-today{
 	width: 30em;
 	height: 1.5em;
 	font-size: 200%;
-	background: url(../images/magnifyingglass.png) no-repeat 10px;
+	background-position:10px;
 	padding-left: 45px;
 	border-radius: 15px;
 }
