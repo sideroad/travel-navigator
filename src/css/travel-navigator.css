@@ -38,12 +38,12 @@ nav p span{
 
 .item {
 	left: 50%;
-	margin-left: -40%;
-	width: 80%;
+	margin-left: -35%;
+	width: 70%;
 }
 
 #calendar{
-	width: 75%;
+	width: 90%;
 	margin: 0 auto;
 }
 
@@ -90,6 +90,25 @@ td.fc-today{
 	position: relative;
 }
 
+.area-text{
+	width: 30em;
+	height: 1.5em;
+	font-size: 200%;
+	background: url(../images/magnifyingglass.png) no-repeat 10px;
+	padding-left: 45px;
+	border-radius: 15px;
+}
+
+.pac-item{
+	font-size: 1.5em;
+}
+
+#calendar-selected{
+	position: absolute;
+	left: 5%;
+	font-size: 180%;
+}
+
 a.calendar-button{
 	text-decoration: none;
 	display : block;
@@ -109,17 +128,17 @@ a.calendar-button div{
 	font-weight: bold;
 }
 
-#s-1000-2{
+.message{
 	font-size: 200%;
 	left: 50%;
 	margin-left: -15%;
 }
 
 .calendar-prev{
-	left: -5%;
+	left: -10%;
 }
 .calendar-next{
-	right: -5%;
+	right: -10%;
 }
 
 .calendar-prev div{

@@ -14,14 +14,17 @@
 <script type='text/javascript' src='js/fullcalendar.js'></script>
 <script type='text/javascript' src='js/gcal.js'></script>
 <script type='text/javascript' src='js/jquery.smooth-scroll.js'></script>
+<!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false">-->
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true">
+</script>
 <script type='text/javascript' src='js/travel-navigator.js'></script>
 </head>
 <body class="notransition" >
 
-	<nav id="s-0-1" data-start="top:40%" data-end="top:40%;" >
-		<p data-href="#500" class="smooth-scroll" ><span class="nav-icon icon-date" >Date</span></p>
-		<p data-href="#2000" class="smooth-scroll" ><span class="nav-icon icon-area" >Area</span></p>
-		<p data-href="#3500" class="smooth-scroll" ><span class="nav-icon icon-result" >Result</span></p>
+	<nav id="s-0-1" data-start="top:10%" data-end="top:10%;" >
+		<p id="link-date" data-href="#500" class="smooth-scroll" ><span id="nav-date" class="nav-icon icon-date" >Date</span></p>
+		<p id="link-area" data-href="#1500" class="smooth-scroll" ><span class="nav-icon icon-area" >Area</span></p>
+		<p id="link-result" data-href="#3500" class="smooth-scroll" ><span class="nav-icon icon-result" >Result</span></p>
 	</nav>
 
 	<div id="s-400-1" data-0="top:100%;" data-400="top:40%;" data-1000="top:40%" data-1500="top:-100%;" class="item" >
@@ -30,15 +33,21 @@
 			<a id="calendar-next" href="#" class="calendar-button calendar-next" ><div>&gt;</div></a>
 		</div>
 	</div>
-	<div id="s-500-1" data-0="top:100%;opacity:0;" data-500="top:7%;opacity:1;" data-1000="top:7%" data-1500="top:-100%;opacity:0;" class="item" >
-		<div id="calendar-selected" >Select checkin and drag to checkout</div>
+	<div id="s-500-1" data-0="top:100%;opacity:0;" data-500="top:5%;opacity:1;" data-1000="top:5%" data-1500="top:-100%;opacity:0;" class="item" >
 		<div id="calendar-container">
+					<div id="calendar-selected" >Select checkin and drag to checkout</div>
+
 			<div id='calendar'></div>
 		</div>
 	</div>
 
-	<div id="s-1000-2" data-1500="transform:rotateY(-180deg);opacity:0;top:70%;" data-2000="transform:rotateY(0deg);opacity:1;top:50%;" data-1000="transform:rotateY(0deg);opacity:1;top:50%;" data-2000="transform:rotateY(180deg);opacity:0;top:30%" class="" >
+	<div id="s-1000-1" data-1000="transform:rotateY(-180deg);opacity:0;top:70%;" data-1250="transform:rotateY(0deg);opacity:1;top:50%;" class="message" >
 		<div id="date" ></div>
+	</div>
+
+	<div id="s-1500-1" data-1250="opacity:0;top:100%;" data-1500="opacity:1;top:10%;" class="item" >
+		<p><input type="text" placeholder="Input area name" id="area-text" class="area-text" ></p>
+		<div id="area" ></div>
 	</div>
 
 	<script type="text/javascript" src="js/skrollr.js"></script>
