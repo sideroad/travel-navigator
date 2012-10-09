@@ -1,4 +1,4 @@
-(function(global, document, $, google){
+(function(global, document, $, google, _ ){
 	"use strict";
 
 	$(function() {
@@ -58,11 +58,18 @@
 			/*Travel area mapping*/
 			var group = global.domesticAreaMaster.name.group,
 				name = global.domesticAreaMaster.name.normal,
-				map = global.domesticAreaMaster.map.normal;
+				map = global.domesticAreaMaster.map.normal,
+				areaPhotoTemplate = "<div id='${id}' class='area-photo ${className}' data-val='${val}' data-render='${this}.each'>${title}</div>";
 
-			Object.keys(group).forEach(function(key){
-				$("<div id='area_group_"+key+"' class='area-photo area-group' >"+group[key]+"</div>").appendTo("#area-photo-container");
-			});
+			$("#area-photo-container").render( areaPhotoTemplate,
+				_.map(group, function(val, key){
+					return {
+						id : "area_group_"+key,
+						title : val,
+						className : "area-group"
+					};
+				})
+			);
 
 			$("#area-photo-container").delegate(".area-photo", "click", function(){
 				var id = this.id.split("_"),
@@ -76,10 +83,47 @@
 					//Search!!!!
 					console.log("Search! by ", id);
 				}
-				$("#area-photo-container").html("");
-				area.forEach(function(key){
-					$("<div id='area_"+next+"_"+key+"_"+(id[3]?id[3]+"-":"")+key+"' class='area-photo area-"+next+"' data-val='"+key+"' >"+name[(id[3]?id[3]+"-":"")+key]+"</div>").appendTo("#area-photo-container");
+
+				$(this).clone().appendTo("#area-photo-selected").transition({
+					rotateY : "360deg",
+					opacity: 1
 				});
+
+				$("#area-photo-container").find(".area-photo").transition({
+					rotateY : "360deg",
+					opacity: 0
+				}, function(){
+					this.remove();
+					if(!area.length) return;
+					var data = _.map(
+							_.filter(area, function(item){
+								return !/\d/.test( item );
+							}), function(key){
+								return {
+									id : "area_"+next+"_"+key+"_"+(id[3]?id[3]+"-":"")+key,
+									className : "area-"+next,
+									val: key,
+									title: name[(id[3]?id[3]+"-":"")+key]
+								};
+
+							}
+						);
+
+					$("#area-photo-container")
+						.render( areaPhotoTemplate,data)
+						.css({
+							css : "360deg",
+							opacity: 0
+						}).transition({
+							rotateY: "0deg",
+							opacity: 1
+						});
+					area = [];
+				});
+			});
+
+			$("#area-photo-selected").delegate(".area-photo", "click", function(){
+
 
 			});
 
@@ -110,4 +154,4 @@
 
 		
 	});
-})(this, this.document, jQuery, google);
+})(this, this.document, jQuery, google, _);
