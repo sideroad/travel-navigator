@@ -62,8 +62,12 @@ nav p span{
 	color: #777;
 }
 
-.area-group{
+
+.area-japan, .area-group, .area-middle{
 	font-size: 2em;
+}
+.area-small, .area-detail{
+	font-size: 1.5em;
 }
 
 #calendar{

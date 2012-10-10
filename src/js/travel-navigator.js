@@ -59,21 +59,11 @@
 			var group = global.domesticAreaMaster.name.group,
 				name = global.domesticAreaMaster.name.normal,
 				map = global.domesticAreaMaster.map.normal,
-				areaPhotoTemplate = "<div id='${id}' class='area-photo ${className}' data-val='${val}' data-render='${this}.each'>${title}</div>";
-
-			$("#area-photo-container").render( areaPhotoTemplate,
-				_.map(group, function(val, key){
-					return {
-						id : "area_group_"+key,
-						title : val,
-						className : "area-group"
-					};
-				})
-			);
-
-			$("#area-photo-container").delegate(".area-photo", "click", function(){
+				areaPhotoTemplate = "<div id='${id}' class='area-photo ${className}' data-val='${val}' data-render='${this}.each'>${title}</div>",
+				selectArea = function(){
 				var id = this.id.split("_"),
 					next = {
+						japan : 'group',
 						group: 'middle',
 						middle: 'small',
 						small : 'detail'
@@ -84,8 +74,11 @@
 					console.log("Search! by ", id);
 				}
 
-				$(this).clone().appendTo("#area-photo-selected").transition({
+				$(this).clone().appendTo("#area-photo-selected").css({
 					rotateY : "360deg",
+					opacity: 0
+				}).transition({
+					rotateY : "0deg",
 					opacity: 1
 				});
 
@@ -97,10 +90,10 @@
 					if(!area.length) return;
 					var data = _.map(
 							_.filter(area, function(item){
-								return !/\d/.test( item );
+								return !/-1/.test( item );
 							}), function(key){
 								return {
-									id : "area_"+next+"_"+key+"_"+(id[3]?id[3]+"-":"")+key,
+									id : "area_"+next+"_"+key+(next != "group" ? "_"+(id[3]?id[3]+"-":"")+key : ""),
 									className : "area-"+next,
 									val: key,
 									title: name[(id[3]?id[3]+"-":"")+key]
@@ -120,10 +113,41 @@
 						});
 					area = [];
 				});
-			});
+			};
+
+			//Adjust map specification
+			map.group = {
+				japan : Object.keys( map.middle )
+			};
+			$.extend( name, group );
+
+			$("#area-photo-selected").render( areaPhotoTemplate, [{
+				id : "area_japan_japan",
+				title: "Japan",
+				val : "",
+				className : "area-japan"
+			}]);
+
+			$("#area-photo-container").render( areaPhotoTemplate,
+				_.map(group, function(val, key){
+					return {
+						id : "area_group_"+key,
+						title : val,
+						val : "",
+						className : "area-group"
+					};
+				})
+			);
+
+
+			$("#area-photo-container").delegate(".area-photo", "click", selectArea );
 
 			$("#area-photo-selected").delegate(".area-photo", "click", function(){
+				var elem = $(this);
 
+				elem.nextAll().remove();
+				selectArea.call( this );
+				elem.remove();
 
 			});
 
