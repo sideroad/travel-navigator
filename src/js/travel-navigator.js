@@ -16,19 +16,13 @@
 	$(function() {
 		var body = $(document.body),
 			param = {
-				checkin: "",
-				checkout: "",
+				checkin: undefined,
+				checkout: undefined,
 				largeClassCode: "japan",
 				middleClassCode: "",
-				smallClassCode: "",
+				smallClassCode: undefined,
 				detailClassCode: "",
 				adult: 2
-			},
-			photos = {
-				"74733": {
-					exterior: "",
-					interiors:[]
-				}
 			},
 			search,
 			skr = global.skrollr.init({
@@ -41,16 +35,18 @@
 				arr = item.data("validate").split("-");
 				if( act.direction=="down" &&
 					act.curTop > arr[1] &&
-					!param[ arr[0] ]){
+					param[ arr[0] ] === undefined ){
 					this.stopAnimateTo();
 					this.setScrollTop(arr[1]);
 				}
 			}
 		});
+		global.param = param;
 
 		$(".smooth-scroll").click(function(){
 			$.smoothScroll({
-				offset: $(this).data("href").split("#")[1]
+				offset: $(this).data("href").split("#")[1],
+				speed: 800
 			});
 			// smooth scroll is good animation more then below.
 			//skr.animateTo($(this).data("href").split("#")[1]);
@@ -59,8 +55,7 @@
 
 		//Date initialize
 		(function(){
-			var elem = $('#calendar'),
-				dateTextElem = $("#date");
+			var elem = $('#calendar');
 
 			elem.fullCalendar({
 				theme : true,
@@ -77,8 +72,7 @@
 					};
 					param.checkin = getStr(start);
 					param.checkout = getStr(end);
-					dateTextElem.text( getStr( start ) + " - " + getStr( end ));
-					$("#nav-date").text( getStr(start) );
+					$("#link-date").text( getStr( start ) + " - " + getStr( end ) );
 					$("#link-area").click();
 				},
 				eventSources: [{
@@ -127,9 +121,10 @@
 					console.log(id);
 					param[ id[1]+"ClassCode" ] = id[2];
 					
+					$("#link-area").text( $(this).text());
+
 					//Search!!
 					if(!area) {
-						$("#nav-area").text( $(this).text());
 						search();
 						return;
 					}
@@ -254,10 +249,22 @@
 			});
 
 			//map-pin
+			$("#area-text").focus(function(){
+				$("#area-photo-selected, #area-photo-container").transition({
+					scale: 0
+				});
+
+			}).blur(function(){
+				$("#area-photo-selected, #area-photo-container").transition({
+					scale: 1
+				});
+			});
+
 			autocomplete = new google.maps.places.Autocomplete($("#area-text")[0],{
 				componentRestrictions: {country: 'jp'}
 			});
 
+			//Latitude
 			$("#map-pin").click(function(){
 				var elem = $(this),
 					suggest = $(".pac-container");
@@ -274,7 +281,13 @@
 					google.maps.event.addListener(autocomplete, 'place_changed', function() {
 						var place = autocomplete.getPlace().geometry;
 						if(!place) return;
-						console.log(place.location);
+
+						param.smallClassCode = "";
+						param.latitude = place.location.Xa;
+						param.longitude = place.location.Ya;
+						console.log("latlng search!", param);
+						search();
+
 					});
 				}
 			});
@@ -284,7 +297,7 @@
 
 		//Search!!
 		(function(){
-			search = function(){
+			global.search = search = function(){
 				var calls = [],
 					imgLoad = function(src){
 						var dfd = $.Deferred(),
@@ -294,8 +307,63 @@
 							dfd.resolve();
 						};
 						return dfd.promise();
-					};
+					},
+					start = 2500,
+					offset = start,
+					maxPlanLength = 130,
+					hotelElems;
+
+				//Initialize
 				$("#link-result").click();
+
+				$("#result")
+					.delegate(".next-hotel", "click", function(){
+						var to =  $(this).parents(".hotel").next().data("anc");
+						if(!to) return false;
+						$.smoothScroll({
+							offset: to
+						});
+						return false;
+					})
+					.delegate(".prev-hotel", "click", function(){
+						var to = $(this).parents(".hotel").prev().data("anc");
+						if(!to) return false;
+						$.smoothScroll({
+							offset: to
+						});
+						return false;
+					})
+					.delegate(".room-photo-more", "click", function(){
+						var elem = $(this).parents(".right"),
+						    key = Object.keys( elem.data())[0],
+						    data = elem.data(key);
+						elem.animate({
+							left: "20%",
+							width: "72%"
+						});
+
+						elem.attr("data-"+key, data.replace(/left[^%]+%/, "left:20%"));
+						$(this).addClass("room-photo-close")
+						       .removeClass("room-photo-more").text("Close");
+						skr.refresh(elem[0]);
+
+					})
+					.delegate(".room-photo-close", "click", function(){
+						var elem = $(this).parents(".right"),
+						    key = Object.keys( elem.data())[0],
+						    data = elem.data(key);
+						elem.animate({
+							left: "67%",
+							width: "33%"
+						});
+
+						elem.attr("data-"+key, data.replace(/left[^%]+%/, "left:67%"));
+						$(this).addClass("room-photo-more")
+						       .removeClass("room-photo-close").text("More");
+						skr.refresh(elem[0]);
+
+					})
+					.html("");
 
 				$.ajax({
 					url : "http://search.travel.rakuten.co.jp/ds/api/apiVacant",
@@ -303,8 +371,11 @@
 					dataType: "json",
 					success:  function(json){
 						var hotels = json.Body.hotel;
+
+
 						hotels.forEach(function(item){
 							var no = item.hotelNo;
+
 							calls.push(
 								$.ajax({
 									url : "/share/HOTEL/"+no+"/"+no+"_gallery.js",
@@ -312,28 +383,75 @@
 									dataType: "json"
 								})
 							);
-							photos[no] = {
-								exterior : item.hotelImageUrl,
-								interiors : [item.roomImageUrl]
-							};
-						});
+							
+							item.interiors = [item.roomImageUrl];
+							item.room.forEach(function(room){
+								var contents = room.planContents || room.remark || "";
+								room.planContents = (contents.length >= maxPlanLength) ?
+									contents.substr( 0, maxPlanLength ) + "..." :
+									contents;
 
+								room.planName = room.planName || room.roomName;
+								room.total = "￥"+room.dailyCharge[0].total;
+
+							});
+							item.rate = parseInt( (Math.round( item.reviewAverage * 2 ) / 2 ) * 10, 10);
+
+						});
 						$.when.apply($, calls)
 							.done(function(){
 								var responses = Array.prototype.slice.apply( arguments ),
-									calls = [];
-								responses.forEach(function( item ){
-									var data = item[0].DATA,
-										no = item[0].DATA[0].PATH.split("/")[5];
+									imgCalls = [];
+								responses.forEach(function( item, i ){
+									var data = item[0].DATA;
 
 									data.forEach(function( item ){
-										calls.push( imgLoad( item.PATH ) );
-										photos[no].interiors.push(item.PATH);
+										imgCalls.push( imgLoad( item.PATH ) );
+										hotels[i].interiors.push(item.PATH);
 									});
 								});
 
-								$.when.apply($, calls).done(function(){
-									console.log("hooray!", photos);
+								$.when.apply($, imgCalls).done(function(){
+									var result = $("<div></div>");
+									console.log(hotels);
+									result.render({
+										url : "ren/search-item.ren",
+										success : function(){
+											var elem = $("#result").html("");
+											hotelElems = result.find(".hotel");
+											hotelElems.each(function(){
+												var hotel = $(this),
+													span = parseInt(hotel.find(".room-photo").length / 2 , 10) * 150,
+													dh = $(document.body).height();
+
+												hotel.attr("data-"+(offset), "left:50px;top:100%");
+												hotel.attr("data-"+(offset+500),       "top:0%");
+												hotel.attr("data-"+(offset+span-500),   "top:0%");
+												hotel.attr("data-"+(offset+span),  "top:-100%");
+
+												hotel.find(".right").each(function(){
+													var item = $(this);
+													item.attr("data-"+(offset), "left:67%;top:"+dh+"px");
+													item.attr("data-"+(offset+500), "top:0px");
+													item.attr("data-"+(offset+span), "top:-"+span+"px");
+												});
+												hotel.data("anc", (offset+500));
+												offset+=span-500;
+
+											}).appendTo(elem);
+
+											$("#result").hide();
+											skr.refresh();
+											$.smoothScroll({
+												offset : start+501
+											});
+											$("#result").show();
+
+										}
+									}, hotels);
+
+
+
 								});
 							});
 					}
@@ -344,12 +462,6 @@
 			};
 
 		})();
-
-
-
-
-
-
 		
 	});
 })(this, this.document, jQuery, google, _);

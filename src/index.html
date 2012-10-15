@@ -25,8 +25,19 @@
 </head>
 <body class="notransition" >
 
-	<a data-0="top:40%;left:-10%;" data-500="left:5%;" data-1000="left:5%" data-1500="top:40%;left:-10%;" id="calendar-prev" href="#" class="calendar-button calendar-prev" ><div>&lt;</div></a>
-	<a data-0="top:40%;right:-10%;" data-500="right:5%;" data-1000="right:5%" data-1500="top:40%;right:-10%;" id="calendar-next" href="#" class="calendar-button calendar-next" ><div>&gt;</div></a>
+	<div data-start="top:0%;" data-500="top:-100%" class="start-bg" >
+	</div>
+	<div class="feature1" data-start="transform:rotate(20deg);top:15%;left:15%;" data-500="transform:rotate(-20deg);top:-100%"  style="background-image:url(images/feat.1.png)"></div>
+	<div class="feature2" data-start="transform:rotate(-30deg);top:35%;left:75%;" data-500="transform:rotate(0deg);top:-100%" style="background-image:url(images/feat.2.png)"></div>
+	<div class="feature3" data-start="transform:rotate(-10deg);top:75%;left:50%;" data-500="transform:rotate(20deg);top:-100%" style="background-image:url(images/feat.3.png)"></div>
+
+	<div id="start" data-start="top:40%;left:85%;" data-500="top:-100%" class="start" >
+		<p class="start-title" >Travel navigation</p>
+		<a data-href="#500" class="next-icon next-date-select smooth-scroll" href="#" >↓</a>
+	</div>
+
+	<a data-0="top:40%;left:-15%;" data-500="left:5%;" data-1000="left:5%" data-1500="top:40%;left:-15%;" id="calendar-prev" href="#" class="calendar-button calendar-prev" ><div>&lt;</div></a>
+	<a data-0="top:40%;right:-15%;" data-500="right:5%;" data-1000="right:5%" data-1500="top:40%;right:-15%;" id="calendar-next" href="#" class="calendar-button calendar-next" ><div>&gt;</div></a>
 
 	<div id="s-500-1" data-0="top:100%;opacity:0;" data-500="top:5%;opacity:1;" data-1000="top:5%" data-1500="top:-100%;opacity:0;" class="item" data-validate="checkin-500">
 		<div id="calendar-container">
@@ -37,25 +48,37 @@
 	</div>
 
 	<div id="s-1500-bg" data-1250="top:100%" data-1500="top:0%" data-2000="top:-100%" class="area-s1" ></div>
-	<div id="s-1500-1" data-1250="opacity:0;top:100%;" data-1500="opacity:1;top:5%;" data-2500="top:-100%" class="item area" data-validate="smallClassCode-1500" >
+	<div id="s-1500-1" data-1250="opacity:0;top:100%;" data-1500="opacity:1;top:10%;" data-2500="top:-100%" class="item area" data-validate="smallClassCode-1500" >
 		<p>
 			<input type="text" placeholder="Input area name" id="area-text" class="area-text icon-result" >
 			<span id="map-pin" class="iconic map_pin_alt" ></span>
 		</p>
-		<div id="area-photo-selected" >
-		</div>
+		<div id="area-photo-selected" ></div>
 		<div id="area-photo-container" ></div>
 	</div>
 
-	<div id="s-2000-1" data-2000="top:100%" data-2500="top:0%" data-3000="">
+	<div id="s-2000-1" data-2000="left: 85%;top:100%" data-2500="top:45%" data-3000="top:-100%" class="loading" >
 		<img src="images/loading.gif" >
 	</div>
+	<div id="result" ></div>
 
 
-	<nav id="s-0-1" data-start="top:10%" data-end="top:10%;" >
-		<p id="link-date" data-href="#500" class="smooth-scroll" ><span id="nav-date" class="nav-icon icon-date" >Date</span></p>
-		<p id="link-area" data-href="#1500" class="smooth-scroll" ><span id="nav-area" class="nav-icon icon-area" >Area</span></p>
-		<p id="link-result" data-href="#3500" class="smooth-scroll" ><span class="nav-icon icon-result" >Result</span></p>
+	<nav id="s-0-1" >
+		<p id="link-date" data-href="#500" class="smooth-scroll nav-p icon-date" 
+		  data-start="top:2em;left:0px" 
+		  data-2500="width:auto;color:#777777;" 
+		  data-3000="width:0;color:white;" 
+		>Date</p>
+		<p id="link-area" data-href="#1500" class="smooth-scroll nav-p icon-area" 
+		  data-start="top:4em;left:0px" 
+		  data-2500="width:auto;color:#777777;" 
+		  data-3000="width:0;color:white;" 
+		>Area</p>
+		<p id="link-result" data-href="#2500" class="smooth-scroll nav-p icon-result"  
+		  data-start="top:6em;left:0px" 
+		  data-2500="width:auto;color:#777777;" 
+		  data-3000="width:0;color:white;" 
+		>Result</p>
 	</nav>
 	<script type="text/javascript" src="js/skrollr.js"></script>
 	<script type="text/javascript">
