@@ -1,0 +1,31 @@
+<div data-render='${this}.each' class="hotel">
+	<div class="left" >
+		<a href="http://travel.rakuten.co.jp/HOTEL/${hotelNo}/" class="hotelInfo" name="hotel-${hotelNo}" >
+			<img src="$r{hotelImageUrl}">
+			<h1 class="hotelName" >${hotelName}</h1>
+		</a>
+		<a href="#"><div class="rate rank-rate-${rate}">${reviewCount}件の評価</div></a>
+		<p>${hotelSpecial}</p>
+		<p>${access}</p>
+		<a class="prev-hotel next-icon" href="#" >↑</a>
+		<a class="next-hotel next-icon" href="#" >↓</a>
+	</div>
+	<div class="center">
+		<a href="${reserveUrl}" data-render='${room}.each' class="room" >
+			<div class="room-div clearfix" >
+				<div class="room-img" style="background-image:url(${planImageUrl})">${total}</div>
+				<div class="room-contents" >
+					<p>${planName}</p>
+					<p>${roomName}</p>
+					<p>${remark}</p>
+				</div>
+			</div>
+		</a>
+	</div>
+	<div class="right">
+		<div class="room-photo-more">More</div>
+		<div data-render='${interiors}.each' class="room-photo" style="background-image:url($rval);">
+		</div>
+	</div>
+
+</div>

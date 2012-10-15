@@ -1,0 +1,1 @@
+<div id='${id}' class='area-photo ${className}' data-val='${val}' data-render='${this}.each'>${title}</div>

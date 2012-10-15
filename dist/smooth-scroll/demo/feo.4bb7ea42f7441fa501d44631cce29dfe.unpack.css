@@ -1,0 +1,18 @@
+body {
+   font-family: "Helvetica Neue", Helvetica, sans-serif;
+   line-height: 1.4;
+ }
+ .container {
+   margin: 40px auto;
+   width: 200px;
+ }
+ h2 {
+   text-align: center;
+ }
+.mainnav {
+   left: 50%;
+   top: 100px;
+   position: fixed;
+   margin-left: -300px;
+   width: 140px;
+ }
