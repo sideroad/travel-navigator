@@ -59,17 +59,24 @@ nav p:hover{
 
 /*start*/
 .feature1{
-	width: 250px;
-	height: 150px;
+	width: 380px;
+	height: 253px;
 	background-size: cover;
+    -webkit-transform: scale(0.8);
+
 }
 .feature2{
-	width: 150px;
-	height: 100px;
+	width: 380px;
+	height: 253px;
+	background-size: cover;
+
+    -webkit-transform: scale(0.5);
 }
 .feature3{
-	width: 200px;
-	height: 125px;
+	width: 380px;
+	height: 253px;
+	background-size: cover;
+    -webkit-transform: scale(0.4);
 }
 .start{
 	margin-left: -40%;
