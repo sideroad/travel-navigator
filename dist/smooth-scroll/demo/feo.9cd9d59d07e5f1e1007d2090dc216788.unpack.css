@@ -1,0 +1,15 @@
+body {
+   font-family: "Helvetica Neue", Helvetica, sans-serif;
+ }
+ .container {
+   margin: 40px auto;
+   width: 300px;
+ }
+ h2 {
+   text-align: center;
+ }
+ .mainnav {
+   position: fixed;
+   margin-left: -300px;
+   width: 140px;
+ }

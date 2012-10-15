@@ -1,0 +1,30 @@
+body {
+   font-family: "Helvetica Neue", Helvetica, sans-serif;
+ }
+ .container {
+   margin: 40px auto;
+   width: 200px;
+ }
+ h2 {
+   text-align: center;
+ }
+ .mainnav {
+   position: fixed;
+   margin-left: -200px;
+   width: 140px;
+ }
+ .scrollme {
+   height: 100px;
+   width: 180px;
+   overflow: auto;
+   padding-left: 8px;
+   border: 1px solid #999;
+ }
+ .scrollme-x {
+   width: 400px;
+ }
+ .scrollme-x div,
+ .scrollme-x p {
+   float: left;
+   width: 180px;
+ }
