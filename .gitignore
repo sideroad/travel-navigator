@@ -3,3 +3,5 @@
 /site/jquery.transit.js
 /site/jquery.transit.min.js
 /site/.sass-cache
+.DS_Store
+
